@@ -34,7 +34,6 @@ jobs:
         run: |
           npm ci
           npm run build
-          touch out/.nojekyll
 
   deploy:
     environment:
@@ -44,4 +43,8 @@ jobs:
     needs: build
     steps:
       - name: Deploy to GitHub Pages
-        run: ls
+        id: deployment
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: github-pages
+          folder: build

@@ -17,6 +17,7 @@ if (isGithubActions) {
 
 module.exports = {
   output: 'export',
+  distDir: 'build',
   assetPrefix: assetPrefix,
   basePath: basePath,
 }
