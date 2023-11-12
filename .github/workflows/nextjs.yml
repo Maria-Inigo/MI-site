@@ -36,6 +36,7 @@ jobs:
         with:
           node-version: 21
           cache: npm
+          cache-dependency-path: './next-site/package-lock.json'
       - name: Build
         run: |
           npm ci
