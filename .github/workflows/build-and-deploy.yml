@@ -22,7 +22,7 @@ jobs:
        run:
          working-directory: ./next-site/
     steps:
-      - name: Checkout 🛎️
+      - name: 🛎️ Checkout
         uses: actions/checkout@v3
       - name: Setup
         uses: actions/setup-node@v2
@@ -30,16 +30,19 @@ jobs:
           node-version: 21
           cache: npm
           cache-dependency-path: './next-site/package-lock.json'
-      - name: Build 🔧
+      - name: 🔧 Build 
         run: |
           npm ci
           npm run build
 
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./next-site/
     needs: build
     steps:
-      - name: Deploy 🚀
+      - name: 🚀 Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: out
