@@ -22,27 +22,28 @@ jobs:
        run:
          working-directory: ./next-site/
     steps:
-      - name: 🛎️ Checkout
+      - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup
+      - name: Setup Node 21
         uses: actions/setup-node@v2
         with:
           node-version: 21
           cache: npm
-          cache-dependency-path: './next-site/package-lock.json'
-      - name: 🔧 Build 
-        run: |
-          npm ci
-          npm run build
+          cache-dependency-path: ./next-site/package-lock.json
+      - name: Install packages
+        run: npm ci
+      - name: Build project
+        run: npm run build
+      - name: Export static files
+        run: npm run export
+      - name: Add .nojekyll file
+        run: touch ./out/.nojekyll
+      - name: Debug
+        run: ls
 
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./next-site/
     needs: build
     steps:
-      - name: 🚀 Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: out
+      - name: Start development server
+        run: npm run dev
