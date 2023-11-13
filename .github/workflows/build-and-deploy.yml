@@ -48,7 +48,7 @@ jobs:
         run: npx --no-install next build
       - name: Fix permissions
         run: |
-          chmod -v -R +rX "_site/" | while read line; do
+          chmod -v -R +rX "dist" | while read line; do
             echo "::warning title=Invalid file permissions automatically fixed::$line"
           done
       - name: Upload artifact
@@ -66,3 +66,5 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v2
+        with:
+          path: .
